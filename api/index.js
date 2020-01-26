@@ -6,12 +6,14 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const cors = require('cors');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
-const connectDB = require('./config/database');
-const connection = connectDB();
+const connection = require('./config/database');
 const { NOT_FOUND } = require('./util/error');
 const customErrorHandler = require('./middleware/customErrorHandler');
 const { handleSuccessResponse, OK } = require('./util/success');
+const { cookieKey } = require('./config/keys');
 
 const app = express();
 
@@ -25,6 +27,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(logger('dev'));
 app.use(helmet());
+
+const sessionStore = new MongoStore({
+  mongooseConnection: connection,
+  collection: 'sessions'
+});
+
+app.use(
+  session({
+    secret: cookieKey,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 // Expires in 24hours
+    }
+  })
+);
 
 app.get('/', (req, res) =>
   res.status(OK).json(

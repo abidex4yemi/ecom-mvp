@@ -4,18 +4,12 @@ const { mongoURI } = require('./keys');
 
 dotenv.config();
 
-const connectDB = async () => {
-  try {
-    const connection = await mongoose.connect(mongoURI, {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true
-    });
-    return connection;
-  } catch (error) {
-    return error;
-  }
-};
+const connection = mongoose.createConnection(mongoURI, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+  dbName: 'ecom'
+});
 
-module.exports = connectDB;
+module.exports = connection;
