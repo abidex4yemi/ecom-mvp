@@ -5,31 +5,30 @@ const { createError, GENERIC_ERROR, NOT_FOUND } = require('../../util/error');
 const Product = db.models.Product;
 
 /**
- * @description Delete a single product given the id is valid
+ * @description Returns a single product
  *
  * @param {*} req
  * @param {*} res
  * @param {*} next
  */
-const deleteProduct = async (req, res, next) => {
+const getSingleProduct = async (req, res, next) => {
   try {
     const productId = req.params.id;
 
-    const product = await Product.findByIdAndDelete(productId);
+    const product = await Product.findOne({ _id: productId });
 
     if (!product) {
       return next(
         createError({
           status: NOT_FOUND,
-          message: 'Please provide a valid product ID'
+          message: 'Product with the specified ID not found'
         })
       );
     }
 
     return res.status(OK).json(
       handleSuccessResponse({
-        data: product,
-        message: 'Product delete successfully'
+        data: product
       })
     );
   } catch (error) {
@@ -37,7 +36,7 @@ const deleteProduct = async (req, res, next) => {
       return next(
         createError({
           status: NOT_FOUND,
-          message: 'Please provide a valid product ID'
+          message: 'Please provide a valid product category ID'
         })
       );
     }
@@ -51,4 +50,4 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
-module.exports = deleteProduct;
+module.exports = getSingleProduct;

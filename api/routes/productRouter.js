@@ -5,9 +5,13 @@ const validateProductData = require('../middleware/validateSingleProduct');
 const productRouter = express.Router();
 
 productRouter
-  .route('/products/:id?')
-  .delete(controller.deleteProduct)
+  .route('/products')
   .post(validateProductData, controller.addProduct)
   .get(controller.getProducts);
+
+productRouter
+  .route('/products/:id')
+  .get(controller.getSingleProduct)
+  .delete(controller.deleteProduct);
 
 module.exports = productRouter;
