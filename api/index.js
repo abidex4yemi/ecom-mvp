@@ -9,11 +9,12 @@ const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
-const connection = require('./config/database');
+const connection = require('./models');
 const { NOT_FOUND } = require('./util/error');
 const customErrorHandler = require('./middleware/customErrorHandler');
 const { handleSuccessResponse, OK } = require('./util/success');
 const { cookieKey } = require('./config/keys');
+const productRouter = require('./routes/productRouter');
 
 const app = express();
 
@@ -53,6 +54,8 @@ app.get('/', (req, res) =>
     })
   )
 );
+
+app.use('/api/v1', productRouter);
 
 // Handle invalid request
 app.all('*', (req, res) =>

@@ -10,7 +10,7 @@ const Joi = require('@hapi/joi');
  */
 const joiValidate = (req, res, next, schema) => {
   // validate request body against predefined schema
-  const { error, value } = schema.validate(req.body, schema, {
+  const { error, value } = schema.validate(req.body, {
     abortEarly: false
   });
 
@@ -18,7 +18,7 @@ const joiValidate = (req, res, next, schema) => {
   if (error) {
     // Format error object of JOI
     const errors = error.details.map(current => ({
-      key: current.context.key,
+      field: current.context.key,
       message: current.message.replace(/['"]/g, '')
     }));
 
