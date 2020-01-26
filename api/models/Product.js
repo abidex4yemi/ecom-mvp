@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-const productSchema = new Schema({
+const productSchema = new mongoose.Schema({
   name: {
     type: String,
     require: true
@@ -12,8 +10,14 @@ const productSchema = new Schema({
     require: true
   },
   category: {
-    type: Schema.Types.ObjectId,
-    ref: 'category'
+    _id: {
+      type: String,
+      require: true
+    },
+    name: {
+      type: String,
+      require: true
+    }
   },
   attributes: [
     {
@@ -24,10 +28,12 @@ const productSchema = new Schema({
       imageUrl: {
         type: String
       },
-      size: {
-        type: String,
-        require: true
-      },
+      sizes: [
+        {
+          type: String,
+          require: true
+        }
+      ],
       color: {
         type: String,
         required: true
@@ -36,4 +42,4 @@ const productSchema = new Schema({
   ]
 });
 
-mongoose.model('Product', productSchema);
+module.exports = productSchema;

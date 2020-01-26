@@ -9,4 +9,4 @@ const categorySchema = new Schema({
   }
 });
 
-mongoose.model('Category', categorySchema);
+module.exports = categorySchema;
