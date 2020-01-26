@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const { NOT_FOUND } = require('./util/error');
-const allErrorHandler = require('./middleware/errorHandler');
+const customErrorHandler = require('./middleware/customErrorHandler');
 const { handleSuccessResponse, OK } = require('./util/success');
 
 const app = express();
@@ -43,6 +43,6 @@ app.all('*', (req, res) =>
 
 // handle all application error
 // eslint-disable-next-line max-len
-app.use(allErrorHandler());
+app.use(customErrorHandler());
 
 module.exports = app;

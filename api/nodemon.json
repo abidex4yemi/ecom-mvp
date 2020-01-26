@@ -1,7 +1,7 @@
 {
   "exec": "npm run dev",
   "watch": [
-    "src/*"
+    "api/*"
   ],
   "ext": "js, json"
 }
