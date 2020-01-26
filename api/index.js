@@ -7,6 +7,8 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const cors = require('cors');
 
+const connectDB = require('./config/database');
+const connection = connectDB();
 const { NOT_FOUND } = require('./util/error');
 const customErrorHandler = require('./middleware/customErrorHandler');
 const { handleSuccessResponse, OK } = require('./util/success');
@@ -19,6 +21,7 @@ dotenv.config();
  * Set up middleware
  */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(logger('dev'));
 app.use(helmet());
