@@ -1,4 +1,4 @@
-export const FETCH_PRODUCTS = 'fetch_users';
+export const FETCH_PRODUCTS = 'fetch_products';
 
 export const fetchProducts = () => (dispatch, getState, api) => {
   return api
