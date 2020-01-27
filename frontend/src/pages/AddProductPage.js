@@ -13,7 +13,7 @@ const AddProduct = props => {
     name: '',
     description: '',
     attributes: {
-      sizes: ['m'],
+      sizes: ['40', '45', '15'],
       price: '',
       imageUrl:
         'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/59/143003/1.jpg?6475',
@@ -75,7 +75,7 @@ const AddProduct = props => {
       <StyledContainer>
         <StyledAddProductPage>
           <StyledPreviewProduct>
-            <ProductPreview />
+            <ProductPreview newProductDetails={newProductDetails} />
           </StyledPreviewProduct>
 
           <StyledAddProduct>
