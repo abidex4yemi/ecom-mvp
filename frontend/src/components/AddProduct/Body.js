@@ -8,8 +8,22 @@ const Body = props => {
     handleProductTitleChange,
     handleProductAttributeChange,
     newProductDetails,
-    handleTextAreaInputChange
+    handleTextAreaInputChange,
+    categories,
+    handleProductCategoryChange
   } = props;
+
+  const renderCategories = () => {
+    return (
+      <select onChange={handleProductCategoryChange}>
+        {categories.map(category => (
+          <option value={category._id} key={category._id}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+    );
+  };
 
   return (
     <StyledProductDetails>
@@ -19,15 +33,9 @@ const Body = props => {
         </div>
 
         <div className="tags categories">
-          <div className="tags">
-            <select>
-              <option value="winter">winter</option>
-              <option value="working">working</option>
-              <option value="road">road</option>
-            </select>
-          </div>
+          <div className="categories">{renderCategories()}</div>
 
-          <div className="categories">
+          <div className="tags">
             <select>
               <option value="winter">winter</option>
               <option value="working">working</option>

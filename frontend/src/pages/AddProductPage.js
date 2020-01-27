@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import { addProduct } from '../state/actions';
+import { addProduct, fetchCategories } from '../state/actions';
 import Header from '../components/AddProduct/Header';
 import Body from '../components/AddProduct/Body';
 import Footer from '../components/AddProduct/Footer';
 import ProductPreview from '../components/AddProduct/ProductPreview';
 
 const AddProduct = props => {
+  useEffect(() => {
+    props.fetchCategories();
+  }, []);
+
   const [newProductDetails, setNewProductDetails] = useState({
     name: '',
     description: '',
@@ -19,7 +23,7 @@ const AddProduct = props => {
         'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/59/143003/1.jpg?6475',
       color: 'blue'
     },
-    categoryId: '5e2de29e1c9d44000041a4ca'
+    categoryId: ''
   });
 
   const handleProductTitleChange = evt => {
@@ -28,6 +32,15 @@ const AddProduct = props => {
     setNewProductDetails(prevState => ({
       ...prevState,
       [name]: value
+    }));
+  };
+
+  const handleProductCategoryChange = evt => {
+    const { value } = evt.target;
+
+    setNewProductDetails(prevState => ({
+      ...prevState,
+      categoryId: value
     }));
   };
 
@@ -85,6 +98,8 @@ const AddProduct = props => {
               handleProductAttributeChange={handleProductAttributeChange}
               newProductDetails={newProductDetails}
               handleTextAreaInputChange={handleTextAreaInputChange}
+              categories={props.categories}
+              handleProductCategoryChange={handleProductCategoryChange}
             />
             <Footer handleSaveNewProduct={handleSaveNewProduct} />
           </StyledAddProduct>
@@ -96,7 +111,9 @@ const AddProduct = props => {
 
 const mapSateToProps = state => state;
 
-export default connect(mapSateToProps, { addProduct })(AddProduct);
+export default connect(mapSateToProps, { addProduct, fetchCategories })(
+  AddProduct
+);
 
 const StyledAddProductPage = styled.div`
   margin-top: 50px;

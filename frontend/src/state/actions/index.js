@@ -2,6 +2,7 @@ export const FETCH_PRODUCTS = 'fetch_products';
 export const FETCHING_PRODUCTS = 'fetching_products';
 export const ADDING_PRODUCT = 'adding_product';
 export const CREATE_PRODUCT = 'create_product';
+export const FETCH_CATEGORIES = 'fetch_categories';
 
 export const fetchProducts = () => (dispatch, getState, api) => {
   dispatch({
@@ -50,7 +51,19 @@ export const addProduct = product => (dispatch, getState, api) => {
 
       return res;
     })
-    .catch(err => {
-      debugger;
-    });
+    .catch(err => err);
+};
+
+export const fetchCategories = () => (dispatch, getState, api) => {
+  return api
+    .get('/categories')
+    .then(res => {
+      dispatch({
+        type: FETCH_CATEGORIES,
+        payload: res.data.body.categories
+      });
+
+      return res;
+    })
+    .catch(err => err);
 };
