@@ -3,7 +3,14 @@ import styled from 'styled-components';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-const Body = () => {
+const Body = props => {
+  const {
+    handleProductTitleChange,
+    handleProductAttributeChange,
+    newProductDetails,
+    handleTextAreaInputChange
+  } = props;
+
   return (
     <StyledProductDetails>
       <StyledImageUploadContainer>
@@ -33,26 +40,33 @@ const Body = () => {
       <StyledProductInfoForm>
         <form>
           <StyledFormGroup>
-            <input type="text" placeholder="Enter digital product name..." />
+            <input
+              type="text"
+              name="name"
+              value={newProductDetails.name}
+              placeholder="Enter digital product name..."
+              onChange={handleProductTitleChange}
+            />
           </StyledFormGroup>
 
           <StyledFormGroup>
             <label htmlFor="price">Pricing</label>
-            <input type="text" placeholder="$0.00" id="price" />
+            <input
+              type="number"
+              min="0.00"
+              name="price"
+              value={newProductDetails.attributes.price}
+              placeholder="$0.00"
+              id="price"
+              onChange={handleProductAttributeChange}
+            />
           </StyledFormGroup>
 
           <StyledFormGroup>
             <label htmlFor="description">Description</label>
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Hello from CKEditor 5!</p>"
-              onInit={editor => {
-                console.log('Editor is ready to use!', editor);
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                console.log({ data });
-              }}
+              onChange={handleTextAreaInputChange}
             />
           </StyledFormGroup>
         </form>

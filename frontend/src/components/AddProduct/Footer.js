@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Footer = () => {
+const Footer = props => {
+  const { handleSaveNewProduct } = props;
+
   return (
     <StyledFooter>
       <button>Cancel</button>
       <button>Delete</button>
-      <button>Save</button>
+      <button type="button" onClick={handleSaveNewProduct}>
+        Save
+      </button>
       <button>Save & Publish</button>
     </StyledFooter>
   );

@@ -1,12 +1,75 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
+import { addProduct } from '../state/actions';
 import Header from '../components/AddProduct/Header';
 import Body from '../components/AddProduct/Body';
 import Footer from '../components/AddProduct/Footer';
 import ProductPreview from '../components/AddProduct/ProductPreview';
 
-const AddProduct = () => {
+const AddProduct = props => {
+  const [newProductDetails, setNewProductDetails] = useState({
+    name: '',
+    description: '',
+    attributes: {
+      sizes: ['m'],
+      price: '',
+      imageUrl:
+        'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/59/143003/1.jpg?6475',
+      color: 'blue'
+    },
+    categoryId: '5e2de29e1c9d44000041a4ca'
+  });
+
+  const handleProductTitleChange = evt => {
+    const { name, value } = evt.target;
+
+    setNewProductDetails(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleProductAttributeChange = evt => {
+    const { name, value } = evt.target;
+
+    setNewProductDetails(prevState => ({
+      ...prevState,
+      attributes: {
+        ...prevState.attributes,
+        [name]: value
+      }
+    }));
+  };
+
+  const handleTextAreaInputChange = (event, editor) => {
+    const data = editor.getData();
+
+    setNewProductDetails(prevState => ({
+      ...prevState,
+      description: data
+    }));
+  };
+  // Save new product
+  const handleSaveNewProduct = evt => {
+    const price = { price: parseFloat(newProductDetails.attributes.price) };
+
+    const newProduct = {
+      ...newProductDetails,
+      attributes: [
+        {
+          ...newProductDetails.attributes,
+          ...price
+        }
+      ]
+    };
+
+    props.addProduct(newProduct).then(res => {
+      props.history.push('/');
+    });
+  };
+
   return (
     <main>
       <StyledContainer>
@@ -17,8 +80,13 @@ const AddProduct = () => {
 
           <StyledAddProduct>
             <Header />
-            <Body />
-            <Footer />
+            <Body
+              handleProductTitleChange={handleProductTitleChange}
+              handleProductAttributeChange={handleProductAttributeChange}
+              newProductDetails={newProductDetails}
+              handleTextAreaInputChange={handleTextAreaInputChange}
+            />
+            <Footer handleSaveNewProduct={handleSaveNewProduct} />
           </StyledAddProduct>
         </StyledAddProductPage>
       </StyledContainer>
@@ -26,7 +94,9 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+const mapSateToProps = state => state;
+
+export default connect(mapSateToProps, { addProduct })(AddProduct);
 
 const StyledAddProductPage = styled.div`
   margin-top: 50px;

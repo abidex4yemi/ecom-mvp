@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { fetchProducts } from '../state/actions';
@@ -23,7 +24,13 @@ const ProductsPage = props => {
   return (
     <StyledProductPage>
       <h2>Welcome Digital Hub store!</h2>
+
+      <StyledCreateNewProduct to={`/add-product`}>
+        <span>Add Product</span>
+      </StyledCreateNewProduct>
+
       <GlobalStyles />
+
       <StyledContainer>
         <StyledProductContainer>{renderProducts()}</StyledProductContainer>
       </StyledContainer>
@@ -48,9 +55,31 @@ const StyledProductContainer = styled.section`
 
 const StyledProductPage = styled.main`
   padding-top: 30px;
+  text-align: center;
 
   h2 {
     text-align: center;
     margin: 50px;
+  }
+`;
+
+const StyledCreateNewProduct = styled(Link)`
+  color: #f4f4f4;
+  font-weight: bold;
+  border: 2px solid rgb(0, 0, 0);
+  padding: 10px 30px;
+  text-align: center;
+  background: hsla(149, 78%, 53%, 1);
+  display: inline-block;
+  overflow: hidden;
+  margin: 30px 0;
+  max-height: 44px;
+  max-width: 510px;
+  width: auto;
+  transition: 0.3s;
+
+  :hover {
+    background: rgb(0, 0, 0);
+    color: #fff;
   }
 `;
