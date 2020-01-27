@@ -1,9 +1,22 @@
-import { FETCH_PRODUCTS } from '../actions';
+import { FETCH_PRODUCTS, FETCHING_PRODUCTS } from '../actions';
 
-export default (state = [], action) => {
+const initialState = {
+  fetchingProducts: false,
+  products: []
+};
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS:
-      return action.payload.data;
+      return {
+        ...state,
+        products: action.payload
+      };
+    case FETCHING_PRODUCTS:
+      return {
+        ...state,
+        ...action.payload
+      };
     default:
       return state;
   }
