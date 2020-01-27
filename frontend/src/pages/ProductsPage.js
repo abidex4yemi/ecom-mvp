@@ -21,12 +21,13 @@ const ProductsPage = props => {
   };
 
   return (
-    <main>
+    <StyledProductPage>
+      <h2>Welcome Digital Hub store!</h2>
       <GlobalStyles />
       <StyledContainer>
         <StyledProductContainer>{renderProducts()}</StyledProductContainer>
       </StyledContainer>
-    </main>
+    </StyledProductPage>
   );
 };
 
@@ -43,4 +44,13 @@ const StyledProductContainer = styled.section`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+`;
+
+const StyledProductPage = styled.main`
+  padding-top: 30px;
+
+  h2 {
+    text-align: center;
+    margin: 50px;
+  }
 `;
