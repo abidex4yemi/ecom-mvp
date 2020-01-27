@@ -11,9 +11,9 @@ const AddProduct = () => {
     <main>
       <StyledContainer>
         <StyledAddProductPage>
-          <section>
+          <StyledPreviewProduct>
             <ProductPreview />
-          </section>
+          </StyledPreviewProduct>
 
           <StyledAddProduct>
             <Header />
@@ -35,7 +35,6 @@ const StyledAddProductPage = styled.div`
 
   section {
     box-sizing: border-box;
-    width: 48%;
     border-radius: 2px;
   }
 `;
@@ -48,4 +47,9 @@ const StyledContainer = styled.div`
 const StyledAddProduct = styled.section`
   background: #f2f2f2;
   border-top: 1px solid #818181;
+  width: 55%;
+`;
+
+const StyledPreviewProduct = styled.section`
+  width: 45%;
 `;

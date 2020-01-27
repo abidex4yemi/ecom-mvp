@@ -8,7 +8,7 @@ const Product = props => {
   const { imageUrl } = attributes[0];
 
   return (
-    <StyledSingleProduct>
+    <StyledSingleProduct rel="bookmark">
       <Link to={`/products/${_id}`}>
         <img src={imageUrl} alt={name} />
       </Link>
