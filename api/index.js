@@ -15,6 +15,7 @@ const customErrorHandler = require('./middleware/customErrorHandler');
 const { handleSuccessResponse, OK } = require('./util/success');
 const { cookieKey } = require('./config/keys');
 const productRouter = require('./routes/productRouter');
+const categoryRouter = require('./routes/categoryRouter');
 
 const app = express();
 
@@ -55,7 +56,7 @@ app.get('/', (req, res) =>
   )
 );
 
-app.use('/api/v1', productRouter);
+app.use('/api/v1', [productRouter, categoryRouter]);
 
 // Handle invalid request
 app.all('*', (req, res) =>
