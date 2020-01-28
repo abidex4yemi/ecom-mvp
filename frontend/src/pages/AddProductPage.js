@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from '../constants';
 
 import { addProduct, fetchCategories } from '../state/actions';
 import Header from '../components/AddProduct/Header';
@@ -19,12 +21,36 @@ const AddProduct = props => {
     attributes: {
       sizes: ['40', '45', '15'],
       price: '',
-      imageUrl:
-        'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/59/143003/1.jpg?6475',
+      imageUrl: '',
       color: 'blue'
     },
-    categoryId: ''
+    categoryId: '5e2de29e1c9d44000041a4ca'
   });
+
+  const handleImageUpload = async evt => {
+    // Not so good way of validation(test mode)
+    if (evt.target.files[0].size > 307200) {
+      alert('File is too big!');
+      evt.target.value = '';
+    }
+
+    const imageFile = new FormData();
+    imageFile.append('file', evt.target.files[0]);
+    imageFile.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    await axios
+      .post(CLOUDINARY_URL, imageFile)
+      .then(res => {
+        setNewProductDetails(prevState => ({
+          ...prevState,
+          attributes: {
+            ...prevState.attributes,
+            imageUrl: res.data.secure_url
+          }
+        }));
+      })
+      .catch(err => err);
+  };
 
   const handleProductTitleChange = evt => {
     const { name, value } = evt.target;
@@ -100,6 +126,7 @@ const AddProduct = props => {
               handleTextAreaInputChange={handleTextAreaInputChange}
               categories={props.categories}
               handleProductCategoryChange={handleProductCategoryChange}
+              handleImageUpload={handleImageUpload}
             />
             <Footer handleSaveNewProduct={handleSaveNewProduct} />
           </StyledAddProduct>

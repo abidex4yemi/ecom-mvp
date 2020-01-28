@@ -24,7 +24,7 @@ const ProductPreview = props => {
       <>
         {' '}
         <StyledImageContainer>
-          <img src={imageUrl} alt={name} />
+          <img src={imageUrl} />
         </StyledImageContainer>
         <StyledProductDetails>
           <h3>{name}</h3>

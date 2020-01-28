@@ -10,7 +10,8 @@ const Body = props => {
     newProductDetails,
     handleTextAreaInputChange,
     categories,
-    handleProductCategoryChange
+    handleProductCategoryChange,
+    handleImageUpload
   } = props;
 
   const renderCategories = () => {
@@ -28,14 +29,25 @@ const Body = props => {
   return (
     <StyledProductDetails>
       <StyledImageUploadContainer>
-        <div className="images">
-          <div className="pic">+</div>
-        </div>
+        <ImageStyled>
+          <label htmlFor="file">
+            <input
+              type="file"
+              id="file"
+              aria-label="product image"
+              onChange={handleImageUpload}
+              accept="image/*"
+            />
+            <span></span>
+          </label>
 
-        <div className="tags categories">
-          <div className="categories">{renderCategories()}</div>
+          <img src={newProductDetails.attributes.imageUrl} />
+        </ImageStyled>
 
-          <div className="tags">
+        <div>
+          <div>{renderCategories()}</div>
+
+          <div>
             <select>
               <option value="winter">winter</option>
               <option value="working">working</option>
@@ -139,4 +151,37 @@ const StyledFormGroup = styled.div`
 
 const StyledImageUploadContainer = styled.div`
   width: 35%;
+`;
+
+const ImageStyled = styled.div`
+  input::-webkit-file-upload-button {
+    display: none;
+  }
+
+  span::before {
+    content: 'Select Product image';
+    display: inline-block;
+    background: linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  span:hover::before {
+    border-color: black;
+  }
+  span:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
