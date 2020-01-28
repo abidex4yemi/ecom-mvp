@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run prod",
-    "server": "node ./start.js",
-    "server:prod": "node ./start.js",
+    "server": "node ./api/start.js",
+    "server:prod": "node ./api/start.js",
     "dev": "NODE_ENV=development npm-run-all server",
     "prod": "NODE_ENV=production npm-run-all server:prod",
     "watch": "nodemon",
