@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Header = () => {
   return (
-    <StyledHeader>
-      <h3>Edit digital product</h3>
+    <header>
+      <h3>Add Digital Product</h3>
 
       <ul>
         <li>Item</li>
@@ -14,36 +14,8 @@ const Header = () => {
         <li>Options</li>
         <li>Social</li>
       </ul>
-    </StyledHeader>
+    </header>
   );
 };
 
 export default Header;
-
-const StyledHeader = styled.header`
-  h3 {
-    text-align: center;
-    margin: 5px 0 10px 0;
-    color: #8b8b8b;
-    font-weight: bold;
-    font-size: 1em;
-    text-transform: uppercase;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #dedede;
-    padding: 0.5em 2em;
-
-    li {
-      display: block;
-      font-weight: normal;
-      color: #8b8b8b;
-      font-size: 0.8rem;
-    }
-  }
-`;

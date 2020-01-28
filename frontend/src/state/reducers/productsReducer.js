@@ -1,13 +1,7 @@
-import {
-  FETCH_PRODUCTS,
-  FETCHING_PRODUCTS,
-  ADDING_PRODUCT,
-  CREATE_PRODUCT
-} from '../actions';
+import { FETCH_PRODUCTS, FETCHING_PRODUCTS } from '../actions';
 
 const initialState = {
   fetchingProducts: false,
-  addingProduct: false,
   products: []
 };
 
@@ -22,16 +16,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload
-      };
-    case ADDING_PRODUCT:
-      return {
-        ...state,
-        ...action.payload.addingProduct
-      };
-    case CREATE_PRODUCT:
-      return {
-        ...state,
-        products: [...state.products, action.payload.product]
       };
     default:
       return state;
