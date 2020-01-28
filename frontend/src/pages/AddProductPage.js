@@ -105,7 +105,9 @@ const AddProduct = props => {
     };
 
     props.addProduct(newProduct).then(res => {
-      props.history.push('/');
+      if (res.status === 201) {
+        props.history.push('/');
+      }
     });
   };
 
